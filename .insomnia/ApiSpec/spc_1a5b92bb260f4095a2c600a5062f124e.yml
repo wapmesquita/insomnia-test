@@ -1,0 +1,276 @@
+_id: spc_1a5b92bb260f4095a2c600a5062f124e
+type: ApiSpec
+parentId: wrk_a85dd6d6b38b4bd4a9ab78d741877c15
+modified: 1635273071778
+created: 1635273030160
+fileName: my-spec.yaml
+contents: >
+  openapi: 3.0.1
+
+  info:
+    title: Swagger Petstore
+    description: 'This is a sample server Petstore server.  You can find out more about     Swagger
+      at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For
+      this sample, you can use the api key `special-key` to test the authorization     filters.'
+    termsOfService: http://swagger.io/terms/
+    contact:
+      email: apiteam@swagger.io
+    license:
+      name: Apache 2.0
+      url: http://www.apache.org/licenses/LICENSE-2.0.html
+    version: 1.0.0
+  servers:
+
+  - url: https://petstore.swagger.io/v2
+
+  tags:
+
+  - name: user
+    description: Users API
+  paths:
+    /user/data:
+      get:
+        tags:
+        - user
+        operationId: getUserData
+        responses:
+          200:
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/UserData'
+          401:
+            description: Unauthorized
+            content: {}
+          403:
+            description: Forbidden
+            content: {}
+      patch:
+        tags:
+        - user
+        operationId: saveUserData
+        responses:
+          200:
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/UserData'
+  components:
+    schemas:
+      UserData:
+        type: object
+        properties:
+          accounts:
+            type: array
+            items:
+              $ref: '#/components/schemas/Account'
+          creditCards:
+            type: array
+            items:
+              $ref: '#/components/schemas/CreditCard'
+          creditCartBills:
+            type: array
+            items:
+              $ref: '#/components/schemas/CreditCardBill'
+          recurrentSpends:
+            type: array
+            items:
+              $ref: '#/components/schemas/RecurrentSpend'
+          proportionalSpends:
+            type: array
+            items:
+              $ref: '#/components/schemas/ProportionalSpend'
+          monthlySpends:
+            type: array
+            items:
+              $ref: '#/components/schemas/MonthlySpend'
+          investiments:
+            type: array
+            items:
+              $ref: '#/components/schemas/Investiment'
+          recurrentInvestiments:
+            type: array
+            items:
+              $ref: '#/components/schemas/RecurrentInvestiment'
+          revenues:
+            type: array
+            items:
+              $ref: '#/components/schemas/Revenue'
+      Account:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          balance:
+            type: number
+          bankId:
+            type: string
+          agencyCode:
+            type: string
+          accountNumber:
+            type: string
+          active:
+            type: boolean
+      CreditCard:
+        type: object
+        properties:
+          id:
+            type: string
+          flag:
+            type: string
+          bank:
+            type: string
+          alias:
+            type: string
+          expirationDay:
+            type: number
+          active:
+            type: boolean
+      CreditCardBill:
+        type: object
+        properties:
+          creditCardId:
+            type: string
+          month:
+            type: number
+          year:
+            type: number
+          value:
+            type: number
+      RecurrentSpend:
+        type: object
+        properties:
+          group:
+            type: string
+          name:
+            type: string
+          expirationDay:
+            type: number
+          value:
+            type: number
+          firstMonth:
+            type: number
+            format: int
+          firstYear:
+            type: number
+            format: int
+          lastMonth:
+            type: number
+            format: int
+          lastYear:
+            type: number
+            format: int
+      ProportionalSpend:
+        type: object
+        properties:
+          group:
+            type: string
+          name:
+            type: string
+          expirationDay:
+            type: number
+          value:
+            type: number
+          firstDayOfMonth:
+            type: number
+            format: int
+          lastDayOfMonth:
+            type: number
+            format: int
+      MonthlySpend:
+        type: object
+        properties:
+          group:
+            type: string
+          name:
+            type: string
+          expirationDay:
+            type: number
+          value:
+            type: number
+          month:
+            type: number
+            format: int
+          year:
+            type: number
+            format: int
+      Investiment:
+        type: object
+        properties:
+          custody:
+            type: string
+          type:
+            type: string
+          application:
+            type: string
+          description:
+            type: string
+          target:
+            type: string
+          value:
+            type: number
+      RecurrentInvestiment:
+        type: object
+        properties:
+          name:
+            type: string
+          target:
+            type: string
+          value:
+            type: number
+            format: float
+          dayOfMonth:
+            type: number
+            format: int
+          firstMonth:
+            type: number
+            format: int
+          firstYear:
+            type: number
+            format: int
+          lastMonth:
+            type: number
+            format: int
+          lastYear:
+            type: number
+            format: int
+          interestRatePerMonth:
+            type: number
+            format: float
+          interestRatePerYear:
+            type: number
+            format: float
+      Revenue:
+        type: object
+        properties:
+          name:
+            type: string
+          value:
+            type: number
+            format: float
+          dayOfMonth:
+            type: number
+            format: int
+          month:
+            type: number
+            format: int
+          year:
+            type: number
+            format: int
+    securitySchemes:
+      petstore_auth:
+        type: oauth2
+        flows:
+          implicit:
+            authorizationUrl: http://petstore.swagger.io/oauth/dialog
+            scopes:
+              write:pets: modify pets in your account
+              read:pets: read your pets
+      api_key:
+        type: apiKey
+        name: api_key
+        in: header
+contentType: yaml
